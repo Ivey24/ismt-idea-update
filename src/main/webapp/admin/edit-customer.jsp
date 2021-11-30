@@ -22,19 +22,31 @@
 
 <body>
 <div class="container" >
-    <form action="/updatecategory" method="post">
+    <form action="/updatecustomer" method="post">
 
         <div class="form-group">
             <label for="exampleFormControlInput1">ID</label>
-            <input type="name" class="form-control" id="exampleFormControlInput1" name="id" value="${category.id}">
+            <input type="name" class="form-control" id="exampleFormControlInput1" name="id" value="${customer.id}">
         </div>
         <div class="form-group">
-            <label for="exampleFormControlInput1">Name</label>
-            <input type="name" class="form-control" id="name" name="name" placeholder="Name" value="${category.name}">
+            <label for="exampleFormControlInput1">First Name</label>
+            <input type="name" class="form-control" id="firstName" name="firstName" value="${customer.firstName}">
         </div>
         <div class="form-group">
-            <label for="exampleFormControlInput1">Description</label>
-            <input type="name" class="form-control" id="description" name="description" placeholder="Description" row="3" value="${category.description}">
+            <label for="exampleFormControlInput1">Last Name</label>
+            <input type="name" class="form-control" id="lastName" name="lastName" placeholder="Name" value="${customer.lastName}">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Address</label>
+            <input type="name" class="form-control" id="address" name="address" placeholder="Description" row="3" value="${customer.address}">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Email</label>
+            <input type="name" class="form-control" id="email" name="email" value="${customer.email}">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Phone</label>
+            <input type="name" class="form-control" id="phone" name="phone" value="${customer.phone}">
         </div>
         <input type="submit" class="btn btn-primary"/>
     </form>

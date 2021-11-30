@@ -1,5 +1,6 @@
 package dao;
 
+import com.sun.source.tree.WhileLoopTree;
 import config.JDBCUtils;
 import entity.User;
 
@@ -33,7 +34,7 @@ public class UserDAO {
                 String phone = rs.getString("phone");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
-                boolean isActive = rs.getBoolean("is-active");
+                boolean isActive = rs.getBoolean("is_active");
 
                // User user = new User(id, a, email, phone, username, password, isActive);
                 //either use above code or the code below
@@ -69,17 +70,17 @@ public class UserDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             // Step 4: Process the ResultSet object.
-                 rs.next();
-                int userId = rs.getInt("id");
-                String name = rs.getString("name");
-                String email = rs.getString("email");
-                String phone = rs.getString("phone");
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                boolean status = rs.getBoolean("is-active");
+             while (rs.next()) {
+                 int userId = rs.getInt("id");
+                 String name = rs.getString("name");
+                 String email = rs.getString("email");
+                 String phone = rs.getString("phone");
+                 String username = rs.getString("username");
+                 String password = rs.getString("password");
+                 boolean status = rs.getBoolean("is_active");
 
-                 user= new User(userId,name,email,phone,username,password,status);
-
+                 user = new User(userId, name, email, phone, username, password, status);
+             }
         } catch (SQLException e) {
             JDBCUtils.printSQLException(e);
         }
@@ -87,7 +88,7 @@ public class UserDAO {
     }
 
     public void delete(int id) {
-        String QUERY = "delete from user where id=? ";
+        String QUERY = "delete from category where id=? ";
         try (Connection connection = JDBCUtils.getConnection();
 
              // Step 2:Create a statement using connection object
@@ -107,7 +108,7 @@ public class UserDAO {
 
 
         final String INSERT_USERS_SQL = "INSERT INTO user" +
-                "  (name, email, phone,username, password,`is-active`) VALUES " +
+                "  (name, email, phone,username, password,`is_active`) VALUES " +
                 " (?, ?, ?, ?, ?,?);";
         try (Connection connection = JDBCUtils.getConnection();
 
@@ -136,13 +137,17 @@ public class UserDAO {
 
     public void update(User user) {
         // Step 1: Establishing a Connection
-        String UPDATE_USERS_SQL = "update student set phone=? , email=? where id=?;";
+        String UPDATE_USERS_SQL = "update user set name=?, username=?,password=?, is_active=?, phone=? , email=? where id=?;";
         try (Connection connection = JDBCUtils.getConnection();
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USERS_SQL)) {
-            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setInt(7, user.getId());
             preparedStatement.setString(2, user.getUsername());
-            preparedStatement.setString(3, user.getPhone());
+            preparedStatement.setString(5, user.getPhone());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setBoolean(4, user.isActive());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(6, user.getEmail());
 
             // Step 3: Execute the query or update query
             preparedStatement.executeUpdate();

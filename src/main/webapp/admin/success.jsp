@@ -44,12 +44,12 @@ ${dog}
 
 
 
-        <c:forEach var = "student" items="${ss}">
-        <p style="color:red">${student.id} </p>
-        <p style="color:red">${student.firstName} </p>
-                <p style="color:red">${student.lastName} </p>
-                        <p style="color:red">${student.email} </p>
-                                                <p style="color:red">${student.phone} </p>
+        <c:forEach var = "ismt" items="${ss}">
+        <p style="color:red">${ismt.id} </p>
+        <p style="color:red">${ismt.firstName} </p>
+                <p style="color:red">${ismt.lastName} </p>
+                        <p style="color:red">${ismt.email} </p>
+                                                <p style="color:red">${ismt.phone} </p>
 
 
 

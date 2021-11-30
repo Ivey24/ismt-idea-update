@@ -15,7 +15,7 @@
 
 <body>
 <div class="container" >
-<form action="/editUser" method="put">
+<form action="/updateusers" method="post">
 
 <div class="mb-3">
       <label for="id" class="form-label">ID</label>

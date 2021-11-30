@@ -1,14 +1,14 @@
 package entity;
 
 public class User {
-    private int id;
+    private int id;             //private int eye;
     private String name;
     private String email;
     private String phone;
     private String username;
     private String password;
     private boolean active;
-
+//  Number phone = new Number();
     public User() {
     }
 

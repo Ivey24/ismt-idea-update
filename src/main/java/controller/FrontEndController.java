@@ -12,7 +12,7 @@ import java.io.IOException;
  * This servlet program is used to print "Hello World" on
  * client browser using annotations.
  */
-@WebServlet(urlPatterns = {"/hero", "/product", "/order"})
+@WebServlet(urlPatterns = {"/hero",  })
 public class FrontEndController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

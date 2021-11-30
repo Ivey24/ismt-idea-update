@@ -116,7 +116,7 @@ public class CategoryDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setInt(1, category.getId());
             preparedStatement.setString(2, category.getName());
-            preparedStatement.setString(2, category.getDescription());
+            preparedStatement.setString(3, category.getDescription());
 
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query

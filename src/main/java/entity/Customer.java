@@ -10,6 +10,32 @@ public class Customer {
 
     public Customer() {
     }
+   public Customer(int id, String firstName, String LastName, String address, String email, String phone) {
+
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = LastName;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+
+
+    }
+    public Customer( String firstName, String LastName, String address, String email, String phone) {
+
+
+        this.firstName = firstName;
+        this.lastName = LastName;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+
+
+    }
+
+    public Customer(int id, String fname, String lname, String address, String phone) {
+
+    }
 
     public int getId() {
         return id;

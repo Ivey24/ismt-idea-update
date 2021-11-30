@@ -1,6 +1,8 @@
 package dao;
 
 import config.JDBCUtils;
+import entity.Category;
+import entity.Order;
 import entity.Product;
 
 import java.sql.Connection;
@@ -13,12 +15,11 @@ import java.util.List;
 public class OrderDAO {
 
 
-    public List<Product> findAll() {
-        List<Product> users = new ArrayList<>();
-        String QUERY = "select * from user ";
+    public List<Order> findAll() {
+        List<Order> orders = new ArrayList<>();
+        final String QUERY = "select * from order";
 
         try (Connection connection = JDBCUtils.getConnection();
-
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(QUERY);) {
             // preparedStatement.setInt(1, 1);
@@ -29,24 +30,26 @@ public class OrderDAO {
 
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
-                int id = rs.getInt(1);
-                String firstName = rs.getString(2);
-                String lastName = rs.getString("last_name");
-                String email = rs.getString("email");
-                String phone = rs.getString("phone");
-                Product user = new Product();
-                user.setId(id);
-                user.setName(email);
-                user.setPrice(1000D);
-                users.add(user);
+                int id = rs.getInt("id");
+                String ordername = rs.getString("order_number");
+                Double total = rs.getDouble("total");
+                String dinfo = rs.getString("delivery_info");
+
+                Order order = new Order();
+
+                order.setId(id);
+                order.setOrderNumber(ordername);
+                order.setTotal(total);
+                order.setDeliveryInfo(dinfo);
+                orders.add(order);
             }
-            for (Product st : users) {
-                System.out.println(st.getId());
-            }
+//            for (Orders st : orders) {
+//                System.out.println(st.getId());
+//            }
         } catch (SQLException e) {
             JDBCUtils.printSQLException(e);
         }
-        return users;
+        return orders;
     }
 
     public Product findById() {

@@ -1,7 +1,10 @@
 package dao;
 
 import config.JDBCUtils;
+import entity.Category;
+import entity.Customer;
 import entity.Product;
+import entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,9 +16,9 @@ import java.util.List;
 public class CustomerDAO {
 
 
-    public List<Product> findAll() {
-        List<Product> users = new ArrayList<>();
-        String QUERY = "select * from user ";
+    public List<Customer> findAll() {
+        List<Customer> customers = new ArrayList<>();
+        String QUERY = "select * from customer";
 
         try (Connection connection = JDBCUtils.getConnection();
 
@@ -26,39 +29,43 @@ public class CustomerDAO {
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
 
-
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 int id = rs.getInt(1);
-                String firstName = rs.getString(2);
+                String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
+                String address = rs.getString("address");
                 String email = rs.getString("email");
                 String phone = rs.getString("phone");
-                Product user = new Product();
-                user.setId(id);
-                user.setName(email);
-                user.setPrice(1000D);
-                users.add(user);
+                Customer customer = new Customer();
+                customer.setId(id);
+                customer.setFirstName(firstName);
+                customer.setLastName(lastName);
+                customer.setAddress(address);
+                customer.setEmail(email);
+                customer.setPhone(phone);
+
+                customers.add(customer);
             }
-            for (Product st : users) {
-                System.out.println(st.getId());
-            }
+//            for (Product st : users) {
+//                System.out.println(st.getId());
+//            }
         } catch (SQLException e) {
             JDBCUtils.printSQLException(e);
         }
-        return users;
+        return customers;
     }
 
-    public Product findById() {
-        Product user = null;
+    public Customer findById(int id) {
+        Customer customer = null;
 
-        final String QUERY = "select id,name,email,country,password from users where id =?";
+        final String QUERY = "select * from users where id =?";
 
         try (Connection connection = JDBCUtils.getConnection();
 
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(QUERY);) {
-            preparedStatement.setInt(1, 1);
+            preparedStatement.setInt(1, id);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
@@ -66,46 +73,39 @@ public class CustomerDAO {
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 // rs.next();
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
+                int customerid = rs.getInt("id");
+                String fname = rs.getString("firstName");
+                String lname = rs.getString("lastName");
+                String address = rs.getString("address");
                 String email = rs.getString("email");
-                String country = rs.getString("country");
-                String password = rs.getString("password");
-                System.out.println(id + "," + name + "," + email + "," + country + "," + password);
+                String phone = rs.getString("phone");
+
+                customer =new Customer(customerid,fname,lname,address,email,phone);
+
             }
+
         } catch (SQLException e) {
             JDBCUtils.printSQLException(e);
         }
-        return user;
+        return customer;
     }
 
     public void delete(int id) {
-        String QUERY = "delete from users where id=? ";
+        String QUERY = "delete from customer where id=? ";
         try (Connection connection = JDBCUtils.getConnection();
 
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
-            preparedStatement.setInt(1, 2);
+            preparedStatement.setInt(1, id);
             // preparedStatement.setInt(1, 1);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             preparedStatement.executeUpdate();
 
-            // Step 4: Process the ResultSet object.
-         /*  while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String email = rs.getString("email");
-                String country = rs.getString("country");
-                String password = rs.getString("password");
-                System.out.println(id + "," + name + "," + email + "," + country + "," + password);
-           }*/
         } catch (SQLException e) {
             JDBCUtils.printSQLException(e);
         }
-        // Step 4: try-with-resource statement will auto close the connection.
     }
-
     public void create(Product user) {
 
 
@@ -132,13 +132,19 @@ public class CustomerDAO {
         // Step 4: try-with-resource statement will auto close the connection.
     }
 
-    public void update(Product user) {
+    public void update(Customer customer) {
         // Step 1: Establishing a Connection
-        String UPDATE_USERS_SQL = "update student set phone=? , email=? where id=?;";
+        String UPDATE_USERS_SQL = "update customer set id=?, first_name=?, last_name=?,address=?, email=?, phone=? where id=?;";
         try (Connection connection = JDBCUtils.getConnection();
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USERS_SQL)) {
-            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setInt(7, customer.getId());
+            preparedStatement.setString(2, customer.getFirstName());
+            preparedStatement.setString(5, customer.getEmail());
+            preparedStatement.setInt(1, customer.getId());
+            preparedStatement.setString(4, customer.getAddress());
+            preparedStatement.setString(3, customer.getLastName());
+            preparedStatement.setString(6, customer.getPhone());
 
             // Step 3: Execute the query or update query
             preparedStatement.executeUpdate();

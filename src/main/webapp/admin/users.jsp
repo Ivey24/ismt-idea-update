@@ -23,10 +23,10 @@
        <tr>
          <th scope="col">ID</th>
          <th scope="col">Name</th>
-         <th scope="col">Username</th>
-         <th scope="col">Password</th>
          <th scope="col">Email</th>
          <th scope="col">Phone</th>
+         <th scope="col">Username</th>
+         <th scope="col">Password</th>
          <th scope="col">Is Active </th>
          <th scope="col">Action </th>
        </tr>
@@ -38,16 +38,15 @@
        <tr>
          <td>${user.id}</td>
           <td>${user.name}</td>
-          <td>${user.username}</td>
-          <td>${user.password}</td>
           <td>${user.email}</td>
           <td>${user.phone}</td>
+          <td>${user.username}</td>
+          <td>${user.password}</td>
           <td>${user.active}</td>
           <td>
           <a href="/viewUser?id=${user.id}">Details</a>
           <a href="/editUser?id=${user.id}">Edit</a>
           <a href="/deleteUser?id=${user.id}">Delete</a>
-
 
           </td>
        </tr>

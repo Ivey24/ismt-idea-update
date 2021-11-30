@@ -3,9 +3,24 @@ package entity;
 public class Product {
     private int id;
     private String name;
-    private Double price;
+    private String price;
     private String description;
     private int categoryId;
+
+    public Product(int id, String name, String price, String description, int categoryId){
+
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.categoryId = categoryId;
+
+
+    }
+
+    public Product() {
+
+    }
 
     public int getId() {
         return id;
@@ -23,11 +38,11 @@ public class Product {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
